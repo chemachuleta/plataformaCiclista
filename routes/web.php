@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\CiclistaController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', [CiclistaController::class, 'index'])->name('ciclista.index');
-Route::get('/login', [CiclistaController::class, 'login'])->name('ciclista.login');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
