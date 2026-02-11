@@ -1,0 +1,35 @@
+[
+    {
+        "key": "inicio",
+        "label": "Inicio",
+        "url": "/"
+    },
+    {
+        "key": "entrenamientos",
+        "label": "Entrenamientos",
+        "children": [
+            {
+                "key": "bloques",
+                "label": "Bloques"
+            },
+            {
+                "key": "sesiones",
+                "label": "Sesiones"
+            }
+        ]
+    },
+    {
+        "key": "ciclistas",
+        "label": "Ciclistas",
+        "children": [
+            {
+                "key": "ciclistas-listado",
+                "label": "Listado"
+            },
+            {
+                "key": "ciclistas-progreso",
+                "label": "Progreso"
+            }
+        ]
+    }
+]

@@ -8,7 +8,7 @@
                 <div class="card-header">Menu principal</div>
                 <div class="card-body">
                     <ul class="nav flex-column">
-                        @forelse ($menus as $menu)
+                        @foreach ($menus as $menu)
                             <li class="mb-2">
                                 <a class="font-weight-bold" href="{{ $menu['url'] ?? '#' }}">
                                     {{ $menu['label'] ?? 'Menu' }}
@@ -24,9 +24,7 @@
                                     </ul>
                                 @endif
                             </li>
-                        @empty
-                            <li class="text-muted">No hay menus configurados en resources/data/menus.json</li>
-                        @endforelse
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -36,9 +34,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Pagina principal</div>
+                <div class="card-header">Consulta</div>
                 <div class="card-body">
-                    Esqueleto inicial con menu dinamico cargado desde JSON.
+                    <h4>{{ $selected['label'] }}</h4>
+                    <p class="mb-0">Pagina de consulta del elemento seleccionado.</p>
                 </div>
             </div>
         </div>

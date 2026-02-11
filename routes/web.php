@@ -9,3 +9,4 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('root');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/consulta/{key}', 'HomeController@consulta')->name('consulta');
