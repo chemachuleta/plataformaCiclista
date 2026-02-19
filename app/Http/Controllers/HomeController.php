@@ -73,6 +73,7 @@ class HomeController extends Controller
 
         $directRoutes = [
             'bloques' => '/bloque',
+            'sesiones' => '/sesionbloque',
         ];
 
         return $directRoutes[$key] ?? route('consulta', ['key' => $key]);
