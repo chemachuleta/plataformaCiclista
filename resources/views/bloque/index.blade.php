@@ -119,6 +119,7 @@
                                         <th>Tipo</th>
                                         <th>Duracion</th>
                                         <th>Potencia %</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,6 +131,11 @@
                                             <td>{{ $bloque->duracion_estimada ?: '-' }}</td>
                                             <td>
                                                 {{ $bloque->potencia_pct_min ?? '-' }} - {{ $bloque->potencia_pct_max ?? '-' }}
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-primary" href="/bloque/{{ $bloque->id }}">
+                                                    Ver detalle
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

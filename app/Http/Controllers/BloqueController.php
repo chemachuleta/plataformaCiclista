@@ -48,7 +48,9 @@ class BloqueController extends Controller
 
     public function show($id)
     {
-        return response()->json(['message' => 'Detalle de bloque', 'id' => (int) $id]);
+        $bloque = BloqueEntrenamiento::findOrFail((int) $id);
+
+        return view('bloque.show', ['bloque' => $bloque]);
     }
 
     public function destroy($id)
