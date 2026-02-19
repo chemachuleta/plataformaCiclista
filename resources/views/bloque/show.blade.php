@@ -7,7 +7,14 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <span>Detalle de bloque #{{ $bloque->id }}</span>
-                    <a href="/bloque" class="btn btn-sm btn-secondary">Volver</a>
+                    <div style="display: inline-flex; align-items: center; gap: 8px;">
+                        <a href="/bloque" style="text-decoration: underline; color: #0b6b56;">Volver</a>
+                        <form method="POST" action="/bloque/{{ $bloque->id }}/eliminar" class="d-inline" onsubmit="return confirm('Seguro que deseas eliminar este bloque?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="card-body">
                     <dl class="row mb-0">

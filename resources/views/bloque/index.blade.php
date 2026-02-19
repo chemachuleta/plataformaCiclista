@@ -12,6 +12,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <form method="POST" action="/bloque/crear">
                         @csrf
@@ -132,10 +137,19 @@
                                             <td>
                                                 {{ $bloque->potencia_pct_min ?? '-' }} - {{ $bloque->potencia_pct_max ?? '-' }}
                                             </td>
-                                            <td>
-                                                <a class="btn btn-sm btn-outline-primary" href="/bloque/{{ $bloque->id }}">
-                                                    Ver detalle
-                                                </a>
+                                            <td style="text-align: right;">
+                                                <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; white-space: nowrap;">
+                                                    <a href="/bloque/{{ $bloque->id }}" style="text-decoration: underline; color: #0b6b56;">
+                                                        Ver detalle
+                                                    </a>
+                                                <form method="POST" action="/bloque/{{ $bloque->id }}/eliminar" style="display: inline-block; margin: 0;" onsubmit="return confirm('Seguro que deseas eliminar este bloque?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-primary">
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

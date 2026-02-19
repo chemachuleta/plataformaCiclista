@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BloqueEntrenamiento;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class BloqueController extends Controller
 {
@@ -55,6 +56,14 @@ class BloqueController extends Controller
 
     public function destroy($id)
     {
-        return response()->json(['message' => 'Bloque eliminado', 'id' => (int) $id]);
+        $bloque = BloqueEntrenamiento::findOrFail((int) $id);
+
+        try {
+            $bloque->delete();
+        } catch (QueryException $e) {
+            return redirect('/bloque')->with('error', 'No se pudo eliminar el bloque porque esta siendo usado.');
+        }
+
+        return redirect('/bloque')->with('status', 'Bloque eliminado correctamente.');
     }
 }
