@@ -50,16 +50,12 @@ class HomeController extends Controller
     {
         foreach ($menus as &$menu) {
             $key = $menu['key'] ?? null;
-            $menu['url'] = ($key === 'inicio' || empty($key))
-                ? '/'
-                : route('consulta', ['key' => $key]);
+            $menu['url'] = $this->resolveUrlByKey($key);
 
             if (!empty($menu['children']) && is_array($menu['children'])) {
                 foreach ($menu['children'] as &$child) {
                     $childKey = $child['key'] ?? null;
-                    $child['url'] = empty($childKey)
-                        ? '#'
-                        : route('consulta', ['key' => $childKey]);
+                    $child['url'] = $this->resolveUrlByKey($childKey);
                 }
                 unset($child);
             }
@@ -67,6 +63,19 @@ class HomeController extends Controller
         unset($menu);
 
         return $menus;
+    }
+
+    private function resolveUrlByKey($key)
+    {
+        if (empty($key) || $key === 'inicio') {
+            return '/';
+        }
+
+        $directRoutes = [
+            'bloques' => '/bloque',
+        ];
+
+        return $directRoutes[$key] ?? route('consulta', ['key' => $key]);
     }
 
     private function findMenuByKey(array $menus, $key)
