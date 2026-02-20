@@ -22,7 +22,6 @@ class CreateCiclistaTable extends Migration
             $table->integer('altura_base')->nullable();
             $table->string('email', 80);
             $table->string('password', 255);
-            $table->rememberToken();
         });
     }
 

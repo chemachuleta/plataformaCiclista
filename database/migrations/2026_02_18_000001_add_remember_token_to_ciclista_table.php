@@ -13,9 +13,11 @@ class AddRememberTokenToCiclistaTable extends Migration
      */
     public function up()
     {
-        Schema::table('ciclista', function (Blueprint $table) {
-            $table->rememberToken()->nullable()->after('password');
-        });
+        if (!Schema::hasColumn('ciclista', 'remember_token')) {
+            Schema::table('ciclista', function (Blueprint $table) {
+                $table->rememberToken()->nullable()->after('password');
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ class AddRememberTokenToCiclistaTable extends Migration
      */
     public function down()
     {
-        Schema::table('ciclista', function (Blueprint $table) {
-            $table->dropColumn('remember_token');
-        });
+        if (Schema::hasColumn('ciclista', 'remember_token')) {
+            Schema::table('ciclista', function (Blueprint $table) {
+                $table->dropColumn('remember_token');
+            });
+        }
     }
 }
