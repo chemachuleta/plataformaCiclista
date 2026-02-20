@@ -21,13 +21,15 @@
     <style>
         :root {
             --green-900: #0b3d2e;
-            --green-700: #0f6b4b;
-            --green-500: #16a065;
-            --green-300: #8fd6b3;
-            --green-100: #e6f5ee;
+            --green-700: #145c42;
+            --green-500: #229f72;
+            --green-300: #9dd9bd;
+            --green-100: #edf8f2;
+            --sand-100: #f8faf9;
             --white: #ffffff;
-            --ink: #1d2a24;
-            --shadow: 0 16px 40px rgba(15, 107, 75, 0.12);
+            --ink: #1f2b26;
+            --muted: #5e7168;
+            --shadow: 0 12px 32px rgba(11, 61, 46, 0.10);
             --radius: 18px;
         }
 
@@ -39,8 +41,8 @@
             font-family: "Poppins", sans-serif;
             color: var(--ink);
             background:
-                radial-gradient(1200px 600px at 10% -10%, rgba(22, 160, 101, 0.10), transparent 60%),
-                radial-gradient(900px 500px at 90% 0%, rgba(15, 107, 75, 0.12), transparent 55%),
+                radial-gradient(1200px 600px at 5% -10%, rgba(34, 159, 114, 0.14), transparent 60%),
+                radial-gradient(1000px 550px at 100% 0%, rgba(20, 92, 66, 0.15), transparent 55%),
                 var(--white);
         }
 
@@ -63,14 +65,15 @@
         }
 
         .navbar {
-            background: rgba(255, 255, 255, 0.85) !important;
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(15, 107, 75, 0.08);
+            background: rgba(255, 255, 255, 0.88) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(20, 92, 66, 0.10);
         }
 
         .navbar-brand {
             font-weight: 600;
             color: var(--green-900) !important;
+            letter-spacing: 0.3px;
         }
 
         .nav-link {
@@ -80,12 +83,50 @@
             padding-bottom: 0.65rem;
         }
 
-        ul {
-            padding-left: 1.25rem;
+        .navbar-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
 
-        li {
-            line-height: 1.5;
+        .dropdown-menu {
+            border: 1px solid rgba(20, 92, 66, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(11, 61, 46, 0.12);
+        }
+
+        .user-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            background: var(--green-100);
+            border: 1px solid rgba(20, 92, 66, 0.18);
+            color: var(--green-900);
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+
+        .logout-form {
+            margin: 0 0 0 0.55rem;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(20, 92, 66, 0.3);
+            background: var(--white);
+            color: var(--green-700);
+            border-radius: 999px;
+            padding: 0.35rem 0.9rem;
+            font-weight: 600;
+            line-height: 1.2;
+            transition: all 150ms ease;
+        }
+
+        .logout-btn:hover {
+            background: var(--green-100);
+            color: var(--green-900);
+            border-color: rgba(20, 92, 66, 0.45);
         }
 
         .container {
@@ -107,10 +148,15 @@
             padding-left: 2rem;
         }
 
+        .card-body {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
         .btn-primary {
-            background: linear-gradient(135deg, #20b877, #38d28d);
+            background: linear-gradient(135deg, #1e9f72, #37c489);
             border: none;
-            box-shadow: 0 12px 24px rgba(32, 184, 119, 0.22);
+            box-shadow: 0 10px 22px rgba(30, 159, 114, 0.20);
             border-radius: 999px;
             padding: 0.55rem 1.4rem;
             font-weight: 600;
@@ -126,9 +172,27 @@
             color: var(--green-700);
         }
 
+        .btn-outline-main {
+            border: 1px solid rgba(20, 92, 66, 0.35);
+            color: var(--green-700);
+            background: var(--white);
+            border-radius: 999px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+        }
+
+        .btn-outline-main:hover {
+            background: var(--green-100);
+            color: var(--green-900);
+        }
+
         .form-control {
             border-radius: 12px;
             border: 1px solid rgba(15, 107, 75, 0.18);
+        }
+
+        .form-control::placeholder {
+            color: #8a9a92;
         }
 
         .form-control:focus {
@@ -140,14 +204,85 @@
             border-radius: 14px;
         }
 
-        .card-body {
-            padding-left: 2rem;
-            padding-right: 2rem;
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background: #f3faf6;
+            color: var(--green-900);
+            border-bottom: 1px solid rgba(20, 92, 66, 0.15);
+            font-weight: 600;
+        }
+
+        .table td, .table th {
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: #f8fcfa;
+        }
+
+        .menu-tree {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-tree > li {
+            margin-bottom: 0.85rem;
+        }
+
+        .menu-tree a {
+            text-decoration: none;
+        }
+
+        .menu-tree a:hover {
+            text-decoration: underline;
+        }
+
+        .menu-child {
+            list-style: none;
+            margin: 0.55rem 0 0 0;
+            padding: 0.2rem 0 0.2rem 1rem;
+            border-left: 2px solid rgba(20, 92, 66, 0.16);
+        }
+
+        .menu-child li {
+            margin-bottom: 0.4rem;
+        }
+
+        .page-intro {
+            background: linear-gradient(140deg, rgba(237, 248, 242, 0.95), rgba(255, 255, 255, 0.95));
+            border: 1px solid rgba(20, 92, 66, 0.08);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .page-intro p {
+            margin: 0.45rem 0 0;
+            color: var(--muted);
         }
 
         main.py-4 {
             padding-top: 2.5rem !important;
             padding-bottom: 3rem !important;
+        }
+
+        @media (max-width: 767.98px) {
+            .card-header,
+            .card-body {
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+            }
+
+            .page-intro {
+                padding: 1.1rem 1rem;
+            }
         }
     </style>
 </head>
@@ -181,22 +316,12 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                            <li class="nav-item d-flex align-items-center">
+                                <span class="user-chip">{{ Auth::user()->nombre ?? Auth::user()->name ?? 'Usuario' }}</span>
+                                <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                                    @csrf
+                                    <button type="submit" class="logout-btn">Cerrar sesion</button>
+                                </form>
                             </li>
                         @endguest
                     </ul>
