@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sesionbloque', 'SesionBloqueController@index');
     Route::post('/sesionbloque/crear', 'SesionBloqueController@store');
+    Route::get('/sesionbloque/{id}/editar', 'SesionBloqueController@edit')->where('id', '[0-9]+');
+    Route::put('/sesionbloque/{id}', 'SesionBloqueController@update')->where('id', '[0-9]+');
     Route::delete('/sesionbloque/{id}', 'SesionBloqueController@destroy')->where('id', '[0-9]+');
 
     Route::get('/', 'HomeController@index')->name('root');

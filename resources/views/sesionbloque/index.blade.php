@@ -2,10 +2,15 @@
 
 @section('content')
 <div class="container">
+    @php
+        $isEdit = isset($editSesionBloque);
+    @endphp
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card mb-4">
-                <div class="card-header">Crear sesion de bloque</div>
+                <div class="card-header">
+                    {{ $isEdit ? 'Editar sesion de bloque #'.$editSesionBloque->id : 'Crear sesion de bloque' }}
+                </div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -23,15 +28,18 @@
                             Necesitas al menos una sesion y un bloque para crear una sesion de bloque.
                         </div>
                     @else
-                        <form method="POST" action="/sesionbloque/crear">
+                        <form method="POST" action="{{ $isEdit ? '/sesionbloque/'.$editSesionBloque->id : '/sesionbloque/crear' }}">
                             @csrf
+                            @if ($isEdit)
+                                @method('PUT')
+                            @endif
 
                             <div class="form-group">
                                 <label for="id_sesion_entrenamiento">Sesion de entrenamiento</label>
                                 <select id="id_sesion_entrenamiento" name="id_sesion_entrenamiento" class="form-control @error('id_sesion_entrenamiento') is-invalid @enderror" required>
                                     <option value="">Selecciona una sesion...</option>
                                     @foreach ($sesiones as $sesion)
-                                        <option value="{{ $sesion->id }}" {{ (string) old('id_sesion_entrenamiento') === (string) $sesion->id ? 'selected' : '' }}>
+                                        <option value="{{ $sesion->id }}" {{ (string) old('id_sesion_entrenamiento', $isEdit ? $editSesionBloque->id_sesion_entrenamiento : '') === (string) $sesion->id ? 'selected' : '' }}>
                                             #{{ $sesion->id }} - {{ $sesion->nombre ?: 'Sesion sin nombre' }} ({{ $sesion->fecha }})
                                         </option>
                                     @endforeach
@@ -46,7 +54,7 @@
                                 <select id="id_bloque_entrenamiento" name="id_bloque_entrenamiento" class="form-control @error('id_bloque_entrenamiento') is-invalid @enderror" required>
                                     <option value="">Selecciona un bloque...</option>
                                     @foreach ($bloques as $bloque)
-                                        <option value="{{ $bloque->id }}" {{ (string) old('id_bloque_entrenamiento') === (string) $bloque->id ? 'selected' : '' }}>
+                                        <option value="{{ $bloque->id }}" {{ (string) old('id_bloque_entrenamiento', $isEdit ? $editSesionBloque->id_bloque_entrenamiento : '') === (string) $bloque->id ? 'selected' : '' }}>
                                             #{{ $bloque->id }} - {{ $bloque->nombre }} ({{ $bloque->tipo }})
                                         </option>
                                     @endforeach
@@ -59,21 +67,26 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="orden">Orden</label>
-                                    <input id="orden" name="orden" type="number" min="1" class="form-control @error('orden') is-invalid @enderror" value="{{ old('orden', 1) }}" required>
+                                    <input id="orden" name="orden" type="number" min="1" class="form-control @error('orden') is-invalid @enderror" value="{{ old('orden', $isEdit ? $editSesionBloque->orden : 1) }}" required>
                                     @error('orden')
                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                     @enderror
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="repeticiones">Repeticiones</label>
-                                    <input id="repeticiones" name="repeticiones" type="number" min="1" class="form-control @error('repeticiones') is-invalid @enderror" value="{{ old('repeticiones', 1) }}">
+                                    <input id="repeticiones" name="repeticiones" type="number" min="1" class="form-control @error('repeticiones') is-invalid @enderror" value="{{ old('repeticiones', $isEdit ? $editSesionBloque->repeticiones : 1) }}">
                                     @error('repeticiones')
                                         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Guardar sesion de bloque</button>
+                            <button type="submit" class="btn btn-primary">
+                                {{ $isEdit ? 'Actualizar sesion de bloque' : 'Guardar sesion de bloque' }}
+                            </button>
+                            @if ($isEdit)
+                                <a href="/sesionbloque" class="btn btn-link">Cancelar</a>
+                            @endif
                         </form>
                     @endif
                 </div>
@@ -106,11 +119,16 @@
                                             <td>{{ $item->orden }}</td>
                                             <td>{{ $item->repeticiones }}</td>
                                             <td style="text-align: right;">
-                                                <form method="POST" action="/sesionbloque/{{ $item->id }}" style="display: inline-block; margin: 0;" onsubmit="return confirm('Seguro que deseas eliminar esta sesion de bloque?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-primary">Eliminar</button>
-                                                </form>
+                                                <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; white-space: nowrap;">
+                                                    <a href="/sesionbloque/{{ $item->id }}/editar" style="text-decoration: underline; color: #0b6b56;">
+                                                        Editar
+                                                    </a>
+                                                    <form method="POST" action="/sesionbloque/{{ $item->id }}" style="display: inline-block; margin: 0;" onsubmit="return confirm('Seguro que deseas eliminar esta sesion de bloque?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

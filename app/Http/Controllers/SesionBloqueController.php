@@ -11,6 +11,72 @@ class SesionBloqueController extends Controller
 {
     public function index()
     {
+        return view('sesionbloque.index', $this->buildViewData());
+    }
+
+    public function edit($id)
+    {
+        $editSesionBloque = DB::table('sesion_bloque')->where('id', (int) $id)->first();
+        if (!$editSesionBloque) {
+            abort(404);
+        }
+
+        return view('sesionbloque.index', array_merge(
+            $this->buildViewData(),
+            ['editSesionBloque' => $editSesionBloque]
+        ));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'id_sesion_entrenamiento' => ['required', 'integer', 'exists:sesion_entrenamiento,id'],
+            'id_bloque_entrenamiento' => ['required', 'integer', 'exists:bloque_entrenamiento,id'],
+            'orden' => ['required', 'integer', 'min:1'],
+            'repeticiones' => ['nullable', 'integer', 'min:1'],
+        ]);
+
+        $validated['repeticiones'] = $validated['repeticiones'] ?? 1;
+
+        DB::table('sesion_bloque')->insert($validated);
+
+        return redirect('/sesionbloque')->with('status', 'Sesion de bloque creada correctamente.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $sesionBloque = DB::table('sesion_bloque')->where('id', (int) $id)->first();
+        if (!$sesionBloque) {
+            abort(404);
+        }
+
+        $validated = $request->validate([
+            'id_sesion_entrenamiento' => ['required', 'integer', 'exists:sesion_entrenamiento,id'],
+            'id_bloque_entrenamiento' => ['required', 'integer', 'exists:bloque_entrenamiento,id'],
+            'orden' => ['required', 'integer', 'min:1'],
+            'repeticiones' => ['nullable', 'integer', 'min:1'],
+        ]);
+
+        $validated['repeticiones'] = $validated['repeticiones'] ?? 1;
+
+        DB::table('sesion_bloque')->where('id', (int) $id)->update($validated);
+
+        return redirect('/sesionbloque')->with('status', 'Sesion de bloque actualizada correctamente.');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::table('sesion_bloque')->where('id', (int) $id)->delete();
+        } catch (QueryException $e) {
+            return redirect('/sesionbloque')->with('error', 'No se pudo eliminar la sesion de bloque.');
+        }
+
+        return redirect('/sesionbloque')->with('status', 'Sesion de bloque eliminada correctamente.');
+    }
+
+    private function buildViewData()
+    {
         $sesiones = DB::table('sesion_entrenamiento')
             ->select('id', 'nombre', 'fecha')
             ->orderBy('fecha', 'desc')
@@ -38,37 +104,10 @@ class SesionBloqueController extends Controller
             ->orderBy('sb.id', 'desc')
             ->get();
 
-        return view('sesionbloque.index', [
+        return [
             'sesiones' => $sesiones,
             'bloques' => $bloques,
             'sesionBloques' => $sesionBloques,
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'id_sesion_entrenamiento' => ['required', 'integer', 'exists:sesion_entrenamiento,id'],
-            'id_bloque_entrenamiento' => ['required', 'integer', 'exists:bloque_entrenamiento,id'],
-            'orden' => ['required', 'integer', 'min:1'],
-            'repeticiones' => ['nullable', 'integer', 'min:1'],
-        ]);
-
-        $validated['repeticiones'] = $validated['repeticiones'] ?? 1;
-
-        DB::table('sesion_bloque')->insert($validated);
-
-        return redirect('/sesionbloque')->with('status', 'Sesion de bloque creada correctamente.');
-    }
-
-    public function destroy($id)
-    {
-        try {
-            DB::table('sesion_bloque')->where('id', (int) $id)->delete();
-        } catch (QueryException $e) {
-            return redirect('/sesionbloque')->with('error', 'No se pudo eliminar la sesion de bloque.');
-        }
-
-        return redirect('/sesionbloque')->with('status', 'Sesion de bloque eliminada correctamente.');
+        ];
     }
 }
