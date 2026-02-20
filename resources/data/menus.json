@@ -10,11 +10,19 @@
         "children": [
             {
                 "key": "bloques",
-                "label": "Bloques"
+                "label": "Bloques de entrenamiento"
+            },
+            {
+                "key": "sesion-bloques",
+                "label": "Sesion de bloques"
             },
             {
                 "key": "sesiones",
-                "label": "Sesiones"
+                "label": "Sesiones de entrenamiento"
+            },
+            {
+                "key": "planes",
+                "label": "Planes de entrenamiento"
             }
         ]
     },

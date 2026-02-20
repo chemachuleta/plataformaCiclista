@@ -10,9 +10,15 @@
                     <ul class="menu-tree">
                         @forelse ($menus as $menu)
                             <li>
-                                <a class="font-weight-bold" href="{{ $menu['url'] ?? '#' }}">
-                                    {{ $menu['label'] ?? 'Menu' }}
-                                </a>
+                                @if (!empty($menu['children']) && is_array($menu['children']))
+                                    <span class="font-weight-bold menu-parent">
+                                        {{ $menu['label'] ?? 'Menu' }}
+                                    </span>
+                                @else
+                                    <a class="font-weight-bold" href="{{ $menu['url'] ?? '#' }}">
+                                        {{ $menu['label'] ?? 'Menu' }}
+                                    </a>
+                                @endif
 
                                 @if (!empty($menu['children']) && is_array($menu['children']))
                                     <ul class="menu-child">

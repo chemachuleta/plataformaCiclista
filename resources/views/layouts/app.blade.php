@@ -243,6 +243,24 @@
             text-decoration: underline;
         }
 
+        .menu-parent {
+            display: inline-flex;
+            align-items: center;
+            color: var(--green-900);
+            cursor: default;
+        }
+
+        .menu-parent::after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-right: 2px solid rgba(20, 92, 66, 0.45);
+            border-bottom: 2px solid rgba(20, 92, 66, 0.45);
+            transform: rotate(45deg);
+            margin-left: 8px;
+            margin-top: -2px;
+        }
+
         .menu-child {
             list-style: none;
             margin: 0.55rem 0 0 0;

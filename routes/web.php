@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/bloque/{id}/eliminar', 'BloqueController@destroy')->where('id', '[0-9]+');
 
     Route::get('/plan', 'PlanController@index');
+    Route::get('/plan/{id}/editar', 'PlanController@edit')->where('id', '[0-9]+');
     Route::post('/plan/crear', 'PlanController@store');
     Route::put('/plan/{id}', 'PlanController@update')->where('id', '[0-9]+');
     Route::delete('/plan/{id}', 'PlanController@destroy')->where('id', '[0-9]+');
