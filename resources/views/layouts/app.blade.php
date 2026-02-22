@@ -68,6 +68,7 @@
             background: rgba(255, 255, 255, 0.88) !important;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(20, 92, 66, 0.10);
+            box-shadow: 0 6px 18px rgba(11, 61, 46, 0.08);
         }
 
         .navbar-brand {
@@ -134,10 +135,11 @@
         }
 
         .card {
-            border: 1px solid rgba(15, 107, 75, 0.08);
+            border: 1px solid rgba(15, 107, 75, 0.12);
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            box-shadow: 0 16px 32px rgba(11, 61, 46, 0.10);
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
         }
 
         .card-header {
@@ -145,12 +147,12 @@
             border-bottom: 1px solid rgba(15, 107, 75, 0.08);
             font-weight: 600;
             color: var(--green-900);
+            padding: 1rem 2rem;
             padding-left: 2rem;
         }
 
         .card-body {
-            padding-left: 2rem;
-            padding-right: 2rem;
+            padding: 1.6rem 2rem;
         }
 
         .btn-primary {
@@ -221,8 +223,12 @@
             vertical-align: middle;
         }
 
+        .table tbody tr:nth-child(even) {
+            background: #fbfefd;
+        }
+
         .table tbody tr:hover {
-            background: #f8fcfa;
+            background: #f1fbf6;
         }
 
         .menu-tree {
@@ -232,15 +238,21 @@
         }
 
         .menu-tree > li {
-            margin-bottom: 0.85rem;
+            margin-bottom: 1.1rem;
         }
 
         .menu-tree a {
             text-decoration: none;
+            display: inline-block;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            transition: all 160ms ease;
         }
 
         .menu-tree a:hover {
-            text-decoration: underline;
+            text-decoration: none;
+            background: var(--green-100);
+            color: var(--green-900);
         }
 
         .menu-parent {
@@ -248,6 +260,7 @@
             align-items: center;
             color: var(--green-900);
             cursor: default;
+            padding: 0.2rem 0.1rem;
         }
 
         .menu-parent::after {
@@ -264,12 +277,12 @@
         .menu-child {
             list-style: none;
             margin: 0.55rem 0 0 0;
-            padding: 0.2rem 0 0.2rem 1rem;
-            border-left: 2px solid rgba(20, 92, 66, 0.16);
+            padding: 0.45rem 0 0.3rem 0.9rem;
+            border-left: 2px solid rgba(20, 92, 66, 0.22);
         }
 
         .menu-child li {
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.45rem;
         }
 
         .page-intro {

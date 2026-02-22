@@ -25,19 +25,5 @@
                 "label": "Planes de entrenamiento"
             }
         ]
-    },
-    {
-        "key": "ciclistas",
-        "label": "Ciclistas",
-        "children": [
-            {
-                "key": "ciclistas-listado",
-                "label": "Listado"
-            },
-            {
-                "key": "ciclistas-progreso",
-                "label": "Progreso"
-            }
-        ]
     }
 ]

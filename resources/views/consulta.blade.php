@@ -4,6 +4,11 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
+            <div class="page-intro">
+                <h4 class="mb-1">{{ $selected['label'] ?? 'Consulta' }}</h4>
+                <p>Usa el menu para navegar entre los modulos de entrenamiento disponibles.</p>
+            </div>
+
             <div class="card mb-4">
                 <div class="card-header">Menu principal</div>
                 <div class="card-body">
