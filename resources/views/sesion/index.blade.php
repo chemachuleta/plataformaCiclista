@@ -103,11 +103,16 @@
                                             <td>{{ $sesion->nombre ?: '-' }}</td>
                                             <td>{{ $sesion->completada ? 'Si' : 'No' }}</td>
                                             <td style="text-align: right;">
-                                                <form method="POST" action="/sesion/{{ $sesion->id }}" style="display: inline-block; margin: 0;" onsubmit="return confirm('Seguro que deseas eliminar esta sesion de entrenamiento?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-primary">Eliminar</button>
-                                                </form>
+                                                <div style="display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; white-space: nowrap;">
+                                                    <a href="/resultado/{{ $sesion->id }}" style="text-decoration: underline; color: #0b6b56;">
+                                                        Resultados
+                                                    </a>
+                                                    <form method="POST" action="/sesion/{{ $sesion->id }}" style="display: inline-block; margin: 0;" onsubmit="return confirm('Seguro que deseas eliminar esta sesion de entrenamiento?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
